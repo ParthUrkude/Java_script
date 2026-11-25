@@ -1,0 +1,38 @@
+// Practical 2: Variables and Billing Calculator
+
+var shopName = "Smart Store";
+let customer = prompt("Enter customer name:");
+const taxRate = 0.05;
+
+let products = [
+    { name: "Notebook", price: 50, quantity: 2 },
+    { name: "Pen", price: 10, quantity: 3 },
+    { name: "Bag", price: 600, quantity: 1 }
+];
+
+// Destructuring
+let { name, price } = products[0];
+
+let subtotal = 0;
+
+products.forEach(product => {
+    subtotal += product.price * product.quantity;
+});
+
+let tax = subtotal * taxRate;
+let total = subtotal + tax;
+
+// Template literal
+let bill = `
+<h2>${shopName}</h2>
+<p>Customer: ${customer}</p>
+<p>Subtotal: Rs. ${subtotal}</p>
+<p>Tax: Rs. ${tax}</p>
+<h3>Total Bill: Rs. ${total}</h3>
+`;
+
+document.body.innerHTML = bill;
+
+console.log("First Product:", name);
+console.log("First Product Price:", price);
+console.log(bill);

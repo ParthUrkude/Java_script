@@ -1,0 +1,58 @@
+// Practical 4: Functions and Palindrome Checker
+
+// Function Declaration
+function greet(name) {
+    return "Hello " + name;
+}
+
+// Function Expression
+let square = function(num) {
+    return num * num;
+};
+
+// Arrow Function
+let isEven = num => num % 2 === 0;
+
+// Closure
+function counter() {
+    let count = 0;
+
+    return function() {
+        count++;
+        return count;
+    };
+}
+
+let result = counter();
+
+console.log(greet("Parth"));
+console.log("Square:", square(5));
+console.log("Is Even:", isEven(10));
+
+console.log("Counter:", result());
+console.log("Counter:", result());
+
+// Palindrome Checker
+function palindrome(str) {
+    let reversed = str.split("").reverse().join("");
+
+    if (str.toLowerCase() === reversed.toLowerCase()) {
+        return "Palindrome";
+    }
+    else {
+        return "Not Palindrome";
+    }
+}
+
+try {
+    let word = prompt("Enter a word:");
+
+    if (!word || !word.trim()) {
+        throw new Error("Please enter a word");
+    }
+
+    document.write("<h2>" + palindrome(word) + "</h2>");
+}
+catch(error) {
+    document.write(error.message);
+}

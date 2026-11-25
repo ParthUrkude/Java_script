@@ -1,0 +1,67 @@
+// Practical 11: Countdown Timer
+
+let time = 60;
+let timer;
+
+// ES6 Module function
+export function formatTime(seconds) {
+    let min = Math.floor(seconds / 60);
+    let sec = seconds % 60;
+
+    return String(min).padStart(2, "0") + ":" +
+           String(sec).padStart(2, "0");
+}
+
+document.body.innerHTML = `
+<h2>Countdown Timer</h2>
+
+<h1 id="clock">01:00</h1>
+
+<button id="start">Start</button>
+<button id="reset">Reset</button>
+
+<p id="message"></p>
+`;
+
+let clock = document.getElementById("clock");
+let message = document.getElementById("message");
+
+// Start Timer
+document.getElementById("start").addEventListener("click", function() {
+
+    if (timer) return;
+
+    message.innerHTML = "Timer Started";
+
+    timer = setInterval(function() {
+
+        time--;
+
+        clock.innerHTML = formatTime(time);
+
+        if (time <= 0) {
+
+            clearInterval(timer);
+            timer = null;
+
+            message.innerHTML = "Time Up!";
+
+            setTimeout(function() {
+                alert("Countdown Completed!");
+            }, 100);
+        }
+
+    }, 1000);
+});
+
+// Reset Timer
+document.getElementById("reset").addEventListener("click", function() {
+
+    clearInterval(timer);
+    timer = null;
+
+    time = 60;
+
+    clock.innerHTML = "01:00";
+    message.innerHTML = "Timer Reset";
+});

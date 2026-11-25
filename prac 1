@@ -1,0 +1,18 @@
+// Practical 1: JavaScript Basics
+
+console.log("Welcome to JavaScript");
+console.info("This is an information message");
+console.warn("This is a warning message");
+console.error("This is an error message");
+
+let name = prompt("Enter your name:");
+let course = prompt("Enter your course:");
+
+document.write("<h1>Welcome " + name + "!</h1>");
+document.write("<h2>Course: " + course + "</h2>");
+document.write("<p>Welcome to JavaScript Practical!</p>");
+
+console.table([
+    { name: "Parth", course: "CSE" },
+    { name: "Student", course: "IT" }
+]);

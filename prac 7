@@ -1,0 +1,57 @@
+// Practical 7: To-Do List using DOM
+
+document.body.innerHTML = `
+<h2>My To-Do List</h2>
+
+<input type="text" id="task" placeholder="Enter a task">
+
+<button id="add">Add Task</button>
+
+<ul id="list"></ul>
+`;
+
+let input = document.getElementById("task");
+let list = document.getElementById("list");
+
+document.getElementById("add").addEventListener("click", function() {
+
+    let value = input.value.trim();
+
+    if (value === "") {
+        alert("Please enter a task");
+        return;
+    }
+
+    let li = document.createElement("li");
+
+    let span = document.createElement("span");
+    span.textContent = value;
+
+    // Edit button
+    let edit = document.createElement("button");
+    edit.textContent = "Edit";
+
+    edit.onclick = function() {
+        let updated = prompt("Edit task:", span.textContent);
+
+        if (updated && updated.trim()) {
+            span.textContent = updated.trim();
+        }
+    };
+
+    // Delete button
+    let del = document.createElement("button");
+    del.textContent = "Delete";
+
+    del.onclick = function() {
+        li.parentElement.removeChild(li);
+    };
+
+    li.appendChild(span);
+    li.appendChild(edit);
+    li.appendChild(del);
+
+    list.appendChild(li);
+
+    input.value = "";
+});

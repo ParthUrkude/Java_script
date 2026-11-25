@@ -1,0 +1,40 @@
+// Practical 6: String and Regular Expressions
+
+let text = prompt("Enter some text:");
+
+if (!text) {
+    text = "Contact student@example.com for details";
+}
+
+// String functions
+console.log("Original:", text);
+console.log("Uppercase:", text.toUpperCase());
+console.log("Lowercase:", text.toLowerCase());
+console.log("Length:", text.length);
+
+// Email validation using Regex
+let email = prompt("Enter your email:");
+
+let pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+if (pattern.test(email)) {
+    console.log("Valid Email");
+}
+else {
+    console.log("Invalid Email");
+}
+
+// Extract email addresses from text
+let emails = text.match(/[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/g);
+
+console.log("Extracted Emails:", emails || "None");
+
+// Text Analysis
+let words = text.trim().split(/\s+/);
+let vowels = text.match(/[aeiou]/gi);
+
+document.write("<h2>Text Analysis</h2>");
+document.write("Text: " + text + "<br>");
+document.write("Word Count: " + words.length + "<br>");
+document.write("Character Count: " + text.length + "<br>");
+document.write("Vowel Count: " + (vowels ? vowels.length : 0));

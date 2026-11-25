@@ -1,0 +1,42 @@
+// Practical 5: Shopping Cart Calculator
+
+let cart = [
+    { name: "Keyboard", price: 1200, quantity: 1 },
+    { name: "Mouse", price: 500, quantity: 2 },
+    { name: "USB Cable", price: 200, quantity: 3 }
+];
+
+// Map method
+let items = cart.map(item => item.name);
+console.log("Products:", items);
+
+// Filter method
+let expensive = cart.filter(item => item.price >= 500);
+console.log("Expensive Products:", expensive);
+
+// Find method
+let found = cart.find(item => item.name === "Mouse");
+console.log("Found Product:", found);
+
+// Reduce method
+let total = cart.reduce((sum, item) => {
+    return sum + item.price * item.quantity;
+}, 0);
+
+// Discount calculation
+let discount = total >= 2000 ? total * 0.10 : 0;
+
+let finalAmount = total - discount;
+
+document.write("<h2>Shopping Cart</h2>");
+
+cart.forEach(item => {
+    document.write(
+        item.name + " x " + item.quantity +
+        " = Rs. " + item.price * item.quantity + "<br>"
+    );
+});
+
+document.write("<h3>Total: Rs. " + total + "</h3>");
+document.write("<h3>Discount: Rs. " + discount + "</h3>");
+document.write("<h2>Final Amount: Rs. " + finalAmount + "</h2>");

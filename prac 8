@@ -1,0 +1,78 @@
+// Practical 8: Gym Admission Form
+
+document.body.innerHTML = `
+<h2>Gym Admission Form</h2>
+
+<form id="gymForm">
+
+    <input type="text" id="name" placeholder="Enter Name">
+    <br><br>
+
+    <input type="email" id="email" placeholder="Enter Email">
+    <br><br>
+
+    <input type="number" id="age" placeholder="Enter Age">
+    <br><br>
+
+    <select id="plan">
+        <option value="">Select Plan</option>
+        <option>Monthly</option>
+        <option>Quarterly</option>
+        <option>Yearly</option>
+    </select>
+
+    <br><br>
+
+    <p id="message"></p>
+
+    <button type="submit">Submit</button>
+
+</form>
+`;
+
+let name = document.getElementById("name");
+let email = document.getElementById("email");
+let age = document.getElementById("age");
+let plan = document.getElementById("plan");
+let message = document.getElementById("message");
+
+// Live input validation
+function validate() {
+
+    if (name.value.trim() === "") {
+        message.innerHTML = "Enter your name";
+        return false;
+    }
+
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value)) {
+        message.innerHTML = "Enter valid email";
+        return false;
+    }
+
+    if (age.value < 16 || age.value > 80 || age.value === "") {
+        message.innerHTML = "Age must be between 16 and 80";
+        return false;
+    }
+
+    if (plan.value === "") {
+        message.innerHTML = "Select a membership plan";
+        return false;
+    }
+
+    message.innerHTML = "All fields are valid!";
+    return true;
+}
+
+[name, email, age, plan].forEach(field => {
+    field.addEventListener("input", validate);
+    field.addEventListener("change", validate);
+});
+
+// Submit event
+document.getElementById("gymForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    if (validate()) {
+        alert("Gym Admission Successful!");
+    }
+});

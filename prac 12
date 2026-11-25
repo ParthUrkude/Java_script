@@ -1,0 +1,93 @@
+// Practical 12: Real-Time User Directory using AJAX
+
+document.body.innerHTML = `
+<h2>Live User Directory</h2>
+
+<input type="text" id="search" placeholder="Search User">
+
+<button id="refresh">Refresh Data</button>
+
+<p id="status">Loading users...</p>
+
+<ul id="users"></ul>
+`;
+
+let users = JSON.parse(localStorage.getItem("users")) || [];
+
+let search = document.getElementById("search");
+let userList = document.getElementById("users");
+let status = document.getElementById("status");
+
+// Display Users
+function displayUsers() {
+
+    let value = search.value.toLowerCase();
+
+    let filtered = users.filter(user =>
+        user.name.toLowerCase().includes(value)
+    );
+
+    userList.innerHTML = "";
+
+    filtered.forEach(user => {
+
+        let li = document.createElement("li");
+
+        li.textContent = user.name + " - " + user.email;
+
+        userList.appendChild(li);
+    });
+
+    if (filtered.length === 0) {
+        userList.textContent = "No users found";
+    }
+}
+
+// AJAX request using jQuery
+function loadUsers() {
+
+    status.innerHTML = "Fetching data...";
+
+    $.ajax({
+
+        url: "https://jsonplaceholder.typicode.com/users",
+
+        method: "GET",
+
+        dataType: "json",
+
+        success: function(data) {
+
+            users = data;
+
+            // Store data
+            localStorage.setItem("users", JSON.stringify(users));
+
+            displayUsers();
+
+            status.innerHTML = "Data Loaded Successfully!";
+        },
+
+        error: function() {
+
+            status.innerHTML = "Error loading data";
+
+            displayUsers();
+        }
+
+    });
+}
+
+// Search event
+search.addEventListener("input", displayUsers);
+
+// Refresh event
+document.getElementById("refresh").addEventListener("click", loadUsers);
+
+// Display saved data first
+if (users.length > 0) {
+    displayUsers();
+}
+
+// Load latest data
+loadUsers();
